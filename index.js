@@ -8,8 +8,8 @@ const port= process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-app.get('/',(res,req)=>{
-    res.send('Pickles Taste Server is Running ')
+app.get('/',(req,res)=>{
+    res.send('Pickles Taste Server is Running')
 })
 
 app.listen(port,()=>{
