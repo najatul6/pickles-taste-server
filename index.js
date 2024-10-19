@@ -10,7 +10,7 @@ app.use(cors());
 app.use(express.json());
 
 
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, Collection } = require('mongodb');
 const uri = process.env.MONGO_URI
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
@@ -27,9 +27,34 @@ async function run() {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
 
+
+    // Get the database and collection on which to run the operation
+    const picklesCollection=client.db("picklestasteDb").collection("allpickles");
+    const reviewsCollection=client.db("picklestasteDb").collection("reviews");
+    const usersCollection=client.db("picklestasteDb").collection("allUsers");
+
+    // Pickles Collection 
+    app.get('/pickles',async(req,res)=>{
+      const allPickles=await picklesCollection.find().toArray();
+      res.json(allPickles)
+    })
+
+    // Reviews Collection
+    app.get('/reviews',async(req,res)=>{
+      const allReviews=await reviewsCollection.find().toArray();
+      res.json(allReviews)
+    })
+    
+    // Users Collection
+    app.get('/users',async(req,res)=>{
+      const allUsers=await usersCollection.find().toArray();
+      res.json(allUsers)
+    })
+
+
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
-    console.log("Pinged your deployment. You successfully connected to MongoDB!");
+    console.log("Pinged Successfully connected to MongoDB!");
   } finally {
     // Ensures that the client will close when you finish/error
     // await client.close();
