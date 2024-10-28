@@ -32,8 +32,9 @@ async function run() {
     const picklesCollection=client.db("picklestasteDb").collection("allpickles");
     const reviewsCollection=client.db("picklestasteDb").collection("reviews");
     const usersCollection=client.db("picklestasteDb").collection("allUsers");
+    const ordersCollection=client.db("picklestasteDb").collection("allOrders");
 
-    // Pickles Collection 
+    // Data Collection 
     app.get('/pickles',async(req,res)=>{
       const allPickles=await picklesCollection.find().toArray();
       res.json(allPickles)
@@ -43,6 +44,18 @@ async function run() {
     app.get('/reviews',async(req,res)=>{
       const allReviews=await reviewsCollection.find().toArray();
       res.json(allReviews)
+    })
+
+    // Orders Collection 
+    app.get('/orders',async(req,res)=>{
+      const allOrders=await ordersCollection.find().toArray();
+      res.json(allOrders)
+    })
+
+    app.post('/orders',async(req,res)=>{
+      const newOrder=req.body;
+      const result = await ordersCollection.insertOne(newOrder);
+      res.send(result)
     })
     
     // Users Collection
