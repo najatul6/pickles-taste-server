@@ -66,7 +66,9 @@ async function run() {
       res.json(allUsers)
     })
     app.post('/users',async(req,res)=>{
-      
+      const newUser=req.body;
+      const result = await usersCollection.insertOne(newUser);
+      res.send(result)
     })
 
     // Send a ping to confirm a successful connection
