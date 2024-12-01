@@ -54,7 +54,12 @@ async function run() {
       const allCarts=await cartsCollection.find(query).toArray();
       res.json(allCarts)
     })
-    
+
+    app.post('/carts',async(req,res)=>{
+      const newCart=req.body;
+      const result = await cartsCollection.insertOne(newCart);
+      res.send(result)
+    })
 
     // Orders Collection 
     app.get('/orders',async(req,res)=>{
