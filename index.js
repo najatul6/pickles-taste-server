@@ -33,6 +33,7 @@ async function run() {
     const reviewsCollection=client.db("picklestasteDb").collection("reviews");
     const usersCollection=client.db("picklestasteDb").collection("allUsers");
     const ordersCollection=client.db("picklestasteDb").collection("allOrders");
+    const cartsCollection=client.db("picklestasteDb").collection("allCarts");
 
     // Data Collection 
     app.get('/pickles',async(req,res)=>{
@@ -45,6 +46,8 @@ async function run() {
       const allReviews=await reviewsCollection.find().toArray();
       res.json(allReviews)
     })
+
+    
 
     // Orders Collection 
     app.get('/orders',async(req,res)=>{
