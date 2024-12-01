@@ -47,6 +47,13 @@ async function run() {
       res.json(allReviews)
     })
 
+    // Carts Collection
+    app.get('/carts',async(req,res)=>{
+      const email =req.query.email;
+      const query={userEmail:email}
+      const allCarts=await cartsCollection.find(query).toArray();
+      res.json(allCarts)
+    })
     
 
     // Orders Collection 
